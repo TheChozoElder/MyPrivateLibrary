@@ -6,7 +6,7 @@
         xmlns:ignore="http://www.ignore.com"
         mc:Ignorable="d ignore"
         Height="600"
-        Width="1000"
+        Width="1200"
         Title="MVVM Light Application"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
 
@@ -20,39 +20,30 @@
 
     <Grid x:Name="LayoutRoot">
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-        <Grid Grid.Column="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="100"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="100"/>
-            </Grid.RowDefinitions>
-
-            <Grid Row="0"></Grid>
-            <Grid Row="1">
-
-
-            </Grid>
-            <Grid Row="2"></Grid>
-
+        <Grid Grid.Row="0">
+            
         </Grid>
-        <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="100"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0">
 
-            </Grid>
-            <Grid Grid.Row="1">
-
-            </Grid>
-
-        </Grid>
+        <ListView Grid.Row="1" Margin="10" ItemsSource="{Binding Library}" >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="250" Header="Title" DisplayMemberBinding="{Binding Title}" />
+                    <GridViewColumn Width="160" Header="Author" DisplayMemberBinding="{Binding Author}" />
+                    <GridViewColumn Width="100" Header="Genre" DisplayMemberBinding="{Binding Genre}" />
+                    <GridViewColumn Width="150" Header="Series" DisplayMemberBinding="{Binding Series}" />
+                    <GridViewColumn Width="75" Header="Language" DisplayMemberBinding="{Binding Language}" />
+                    <GridViewColumn Width="100" Header="Format" DisplayMemberBinding="{Binding Format}" />
+                    <GridViewColumn Width="100" Header="ISBN" DisplayMemberBinding="{Binding ISBN}" />
+                    <GridViewColumn Width="125" Header="Publisher" DisplayMemberBinding="{Binding Publisher}" />
+                    <GridViewColumn Width="90" Header="Location" DisplayMemberBinding="{Binding Location}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Window>
