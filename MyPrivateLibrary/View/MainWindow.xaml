@@ -27,14 +27,19 @@
         <Border BorderBrush="#AAA" BorderThickness="10" Grid.Column="0"/>
         <Border BorderBrush="#AAA" BorderThickness="10" Grid.Column="1"/>
 
-        <Grid Grid.Column="0" Margin="10" >
+        <Grid Grid.Column="0">
             <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="200"/>
+                <RowDefinition Height="100"/>
             </Grid.RowDefinitions>
 
-            <Grid Row="0"></Grid>
-            <Grid Row="1" Background="DarkGray"></Grid>
+            <Grid Row="0" Background="DarkGray"></Grid>
+            <Grid Row="1">
+                
+                
+            </Grid>
+            <Grid Row="2" Background="DarkGray"></Grid>
             
         </Grid>
         <Grid Grid.Column="1">
@@ -47,7 +52,7 @@
             <Grid Grid.Row="0">
                 
             </Grid>
-            <Grid Grid.Row="1" Margin="10">
+            <Grid Grid.Row="1">
                 
             </Grid>
 
