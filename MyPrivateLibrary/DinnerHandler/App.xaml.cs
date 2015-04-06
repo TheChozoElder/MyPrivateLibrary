@@ -1,15 +1,12 @@
 ﻿using System.Windows;
 using GalaSoft.MvvmLight.Threading;
 
-namespace MyPrivateLibrary
-{
+namespace DinnerHandler {
 	/// <summary>
 	/// Interaction logic for App.xaml
 	/// </summary>
-	public partial class App : Application
-	{
-		static App()
-		{
+	public partial class App : Application {
+		static App() {
 			DispatcherHelper.Initialize();
 		}
 	}
