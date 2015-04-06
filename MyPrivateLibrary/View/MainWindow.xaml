@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ignore="http://www.ignore.com"
         mc:Ignorable="d ignore"
-        Height="300"
-        Width="300"
+        Height="600"
+        Width="1000"
         Title="MVVM Light Application"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
     
@@ -20,13 +20,37 @@
 
     <Grid x:Name="LayoutRoot">
 
-        <TextBlock FontSize="36"
-                   FontWeight="Bold"
-                   Foreground="Purple"
-                   Text="{Binding WelcomeTitle}"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   TextWrapping="Wrap" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Border BorderBrush="#AAA" BorderThickness="10" Grid.Column="0"/>
+        <Border BorderBrush="#AAA" BorderThickness="10" Grid.Column="1"/>
 
+        <Grid Grid.Column="0" Margin="10" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="200"/>
+            </Grid.RowDefinitions>
+
+            <Grid Row="0"></Grid>
+            <Grid Row="1" Background="DarkGray"></Grid>
+            
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Border BorderBrush="#AAA" BorderThickness="2" Grid.Row="0"/>
+
+            <Grid Grid.Row="0">
+                
+            </Grid>
+            <Grid Grid.Row="1" Margin="10">
+                
+            </Grid>
+
+        </Grid>
     </Grid>
 </Window>
