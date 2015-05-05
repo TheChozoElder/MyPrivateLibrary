@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -21,6 +22,42 @@ namespace DinnerHandler.ViewModel {
 	public class MainViewModel : ViewModelBase
 	{
 
+		#region Commands
+		public ICommand ValidateBookInfo
+		{
+			get;
+			private set;
+		}
+		public ICommand DeleteBookCommand
+		{
+			get;
+			private set;
+		}
+		#endregion
+
+		#region BindedVariables
+
+		private Book activeBook { get; set; }
+		public string ActiveBookName = "ActiveBook";
+		public Book ActiveBook
+		{
+			get
+			{
+				return activeBook;
+			}
+			set
+			{
+				if (activeBook != value)
+				{
+					activeBook = value;
+				}
+				RaisePropertyChanged(ActiveBookName);
+			}
+		}
+		#endregion
+
+		private int timesAddedBookWhoAllreadyExists = 0;
+
 		public string LibraryName = "library";
 		public List<Book> Library
 		{
@@ -40,19 +77,13 @@ namespace DinnerHandler.ViewModel {
 
 		private BookList library { get; set; }
 
-
 		private const string libPath = "Library.json";
 
 		public MainViewModel()
 		{
 			library = new BookList {Library = new List<Book>()};
 
-//			var oki = new Book("Wicca - den gamle religion i det nye årtusen", "Aartun, Jorun Sofie Fallmo", "Debatt/samfunn",
-//				"Den mørke materien:1,2,3", Language.Norsk, Format.Innbundet, "6445186437645", "Vigmostad & Bjørke", Location.Hjemme);
-//			var doli = new Book("fewa", "ee", "Alfabet", "ABC", Language.Norsk, Format.Box, "5754427619665",
-//				"Guriland productions", Location.Loftet);
-//			library.AddBook(oki);
-//			library.AddBook(doli);
+			activeBook = new Book("", "", "", "", 0, 0, "", "", 0);
 
 			try {
 				var jsonStream = new StreamReader(libPath);
@@ -60,12 +91,92 @@ namespace DinnerHandler.ViewModel {
 				library.Deserialize(jsonString);
 				jsonStream.Close();
 			} catch(FileNotFoundException fnf){
-
+				Console.Write(fnf.FileName + " not found. Creating new file.");
 				using (var writer = new StreamWriter(libPath))
 				{
 					writer.Write((library.Serialize()));
 				}
 			}
+				CreateCommands();
+		}
+
+		private void CreateCommands()
+		{
+			ValidateBookInfo = new RelayCommand(ValidateBook);
+			DeleteBookCommand = new RelayCommand(DeleteBook);
+		}
+
+		private void ValidateBook()
+		{
+
+			bool foundAndEdited = false;
+			if (activeBook.Author == "" || activeBook.Title == "")
+			{
+				DisplayMessage("Min mor sier alltid 'For å ha orden i biblioteket ditt må alle bøker ha både navn og tittel, Karl!'. Det burde du også følge..");
+				return;
+			}
+
+			for (int i = 0; i < Library.Count; i++)
+			{
+
+				if (Library.ElementAt(i).Author.ToLower() == activeBook.Author.ToLower()
+					&& Library.ElementAt(i).Title.ToLower() == activeBook.Title.ToLower())
+				{
+					Library.ElementAt(i).Format = activeBook.Format;
+					Library.ElementAt(i).Genre = activeBook.Genre;
+					Library.ElementAt(i).ISBN = activeBook.ISBN;
+					Library.ElementAt(i).Language = activeBook.Language;
+					Library.ElementAt(i).Location = activeBook.Location;
+					Library.ElementAt(i).Publisher = activeBook.Publisher;
+					Library.ElementAt(i).Series = activeBook.Series;
+
+					foundAndEdited = true;
+				}
+			}
+
+			if (!foundAndEdited)
+			{
+				Library.Add(activeBook);
+			}
+
+			activeBook = new Book("", "", "", "", 0, 0, "", "", 0);
+
+			RaisePropertyChanged(ActiveBookName);
+
+			LibraryUpdated();
+		}
+
+		private void DeleteBook()
+		{
+			for (int i = 0; i < Library.Count; i++)
+			{
+
+				if (Library.ElementAt(i).Author.ToLower() == activeBook.Author.ToLower()
+					&& Library.ElementAt(i).Title.ToLower() == activeBook.Title.ToLower())
+				{
+					library.RemoveBook(Library.ElementAt(i));
+				}
+			}
+
+			LibraryUpdated();
+		}
+
+		private void LibraryUpdated()
+		{
+			var newList = Library.ToList();
+			library.Library = newList;
+
+			using (var writer = new StreamWriter(libPath))
+			{
+				writer.Write((library.Serialize()));
+			}
+
+			RaisePropertyChanged(LibraryName);
+		}
+
+		private void DisplayMessage(String message)
+		{
+			Debug.Print(message);
 		}
 
 		private void LibraryChanged()

@@ -22,7 +22,7 @@ namespace DinnerHandler.Model
 
 			Library.Add(BookToAdd);
 		}
-		public void RemoveIngredient(Book bookToRemove)
+		public void RemoveBook(Book bookToRemove)
 		{
 			Book removeThis = null;
 			foreach (var book in Library)

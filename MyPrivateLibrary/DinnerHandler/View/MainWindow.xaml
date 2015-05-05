@@ -4,14 +4,37 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ignore="http://www.ignore.com"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:model="clr-namespace:DinnerHandler.Model"
         mc:Ignorable="d ignore"
-        Height="600"
+        Height="800"
         Width="1200"
         Title="MVVM Light Application"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
 
     <Window.Resources>
-        <ResourceDictionary>
+        <ObjectDataProvider MethodName="GetValues"
+        ObjectType="{x:Type sys:Enum}"
+        x:Key="LanguageValues">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="model:Language" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider MethodName="GetValues"
+        ObjectType="{x:Type sys:Enum}"
+        x:Key="FormatValues">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="model:Format" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider MethodName="GetValues"
+        ObjectType="{x:Type sys:Enum}"
+        x:Key="LocationValues">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="model:Location" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ResourceDictionary x:Key="salt">
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Skins/MainSkin.xaml" />
             </ResourceDictionary.MergedDictionaries>
@@ -21,27 +44,158 @@
     <Grid x:Name="LayoutRoot">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="150"/>
+            <RowDefinition Height="200"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
-            
+        <Grid Grid.Row="0" Margin="10">
+            <Grid>
+
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="350"/>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+                <Grid Column="0">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="Title"/>
+                        </Grid>
+                        <Grid Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="Author"/>
+                        </Grid>
+                        <Grid Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="Genre"/>
+                        </Grid>
+                        <Grid Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="Series"/>
+                        </Grid>
+                        <Grid Row="4" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="Publisher"/>
+                        </Grid>
+                        <Grid Row="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="ISBN"/>
+                        </Grid>
+
+                    </Grid>
+
+                    <Grid Column="1"  Background="#DDD">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Row="0" HorizontalAlignment="Stretch" Height="20" Margin="5">
+                            <TextBox Grid.Row="0" Text="{Binding ActiveBook.Title, Mode=Default}"/>
+                        </Grid>
+                        <Grid Row="1" HorizontalAlignment="Stretch" Height="20" Margin="5">
+                            <TextBox Grid.Row="0" Text="{Binding ActiveBook.Author, Mode=Default}"/>
+                        </Grid>
+                        <Grid Row="2" HorizontalAlignment="Stretch" Height="20" Margin="5">
+                            <TextBox Grid.Row="0" Text="{Binding ActiveBook.Genre, Mode=Default}"/>
+                        </Grid>
+                        <Grid Row="3" HorizontalAlignment="Stretch" Height="20" Margin="5">
+                            <TextBox Grid.Row="0" Text="{Binding ActiveBook.Series, Mode=Default}"/>
+                        </Grid>
+                        <Grid Row="4" HorizontalAlignment="Stretch" Height="20" Margin="5">
+                            <TextBox Grid.Row="0" Text="{Binding ActiveBook.Publisher, Mode=Default}"/>
+                        </Grid>
+                        <Grid Row="5" HorizontalAlignment="Stretch" Height="20" Margin="5">
+                            <TextBox Grid.Row="0" Text="{Binding ActiveBook.ISBN, Mode=Default}"/>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <Grid Column="1">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="Language"/>
+                        </Grid>
+                        <Grid Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="Format"/>
+                        </Grid>
+                        <Grid Row="2"  HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="Location"/>
+                        </Grid>
+
+                    </Grid>
+                        <Grid Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                            <ComboBox ItemsSource="{Binding Source={StaticResource LanguageValues}}" SelectedItem="{Binding ActiveBook.Language, Mode=Default}"/>
+                        </Grid>
+                        <Grid Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                            <ComboBox ItemsSource="{Binding Source={StaticResource FormatValues}}" SelectedItem="{Binding ActiveBook.Format, Mode=Default}"/>
+                        </Grid>
+                        <Grid Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                            <ComboBox ItemsSource="{Binding Source={StaticResource LocationValues}}" SelectedItem="{Binding ActiveBook.Location, Mode=Default}"/>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <Grid Column="2">
+                    <Button Grid.Row="0" Height="40" Width="75" Command="{Binding ValidateBookInfo}">Save/Update</Button>
+                </Grid>
+
+                <Grid Column="4">
+
+                    <Button Grid.Row="1" Height="40" Width="75" Command="{Binding DeleteBookCommand}">Delete</Button>
+
+                </Grid>
+
+            </Grid>
         </Grid>
 
 
-        <ListView Grid.Row="1" Margin="10" ItemsSource="{Binding Library}" >
+        <ListView Grid.Row="1" Margin="10" ItemsSource="{Binding Library}" SelectedItem="{Binding ActiveBook}" >
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="250" Header="Title" DisplayMemberBinding="{Binding Title}" />
-                    <GridViewColumn Width="160" Header="Author" DisplayMemberBinding="{Binding Author}" />
-                    <GridViewColumn Width="100" Header="Genre" DisplayMemberBinding="{Binding Genre}" />
-                    <GridViewColumn Width="150" Header="Series" DisplayMemberBinding="{Binding Series}" />
-                    <GridViewColumn Width="75" Header="Language" DisplayMemberBinding="{Binding Language}" />
-                    <GridViewColumn Width="100" Header="Format" DisplayMemberBinding="{Binding Format}" />
-                    <GridViewColumn Width="100" Header="ISBN" DisplayMemberBinding="{Binding ISBN}" />
-                    <GridViewColumn Width="125" Header="Publisher" DisplayMemberBinding="{Binding Publisher}" />
-                    <GridViewColumn Width="90" Header="Location" DisplayMemberBinding="{Binding Location}" />
+                    <GridViewColumn Width="250" Header="Title" DisplayMemberBinding="{Binding Title, Mode=OneTime}" />
+                    <GridViewColumn Width="160" Header="Author" DisplayMemberBinding="{Binding Author, Mode=OneTime}" />
+                    <GridViewColumn Width="100" Header="Genre" DisplayMemberBinding="{Binding Genre, Mode=OneTime}" />
+                    <GridViewColumn Width="150" Header="Series" DisplayMemberBinding="{Binding Series, Mode=OneTime}" />
+                    <GridViewColumn Width="75" Header="Language" DisplayMemberBinding="{Binding Language, Mode=OneTime}" />
+                    <GridViewColumn Width="100" Header="Format" DisplayMemberBinding="{Binding Format, Mode=OneTime}" />
+                    <GridViewColumn Width="100" Header="ISBN" DisplayMemberBinding="{Binding ISBN, Mode=OneTime}" />
+                    <GridViewColumn Width="125" Header="Publisher" DisplayMemberBinding="{Binding Publisher, Mode=OneTime}" />
+                    <GridViewColumn Width="90" Header="Location" DisplayMemberBinding="{Binding Location, Mode=OneTime}" />
                 </GridView>
             </ListView.View>
         </ListView>

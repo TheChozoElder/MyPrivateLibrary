@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,24 +10,35 @@ namespace DinnerHandler.Model
 
 	public enum Language
 	{
+		[Description("Norsk")]
 		Norsk,
+		[Description("Engelsk")]
 		Engelsk,
+		[Description("Dansk")]
 		Dansk,
+		[Description("Svensk")]
 		Svensk
 	}
 
 	public enum Format
 	{
+		[Description("Innbundet")]
 		Innbundet,
+		[Description("Pocket")]
 		Pocket,
+		[Description("Box")]
 		Box,
+		[Description("Lese eksemplar")]
 		LeseEksemplar
 	}
 
 	public enum Location
 	{
+		[Description("Hjemme")]
 		Hjemme,
+		[Description("Rommet")]
 		Rommet,
+		[Description("Loftet")]
 		Loftet
 	}
 
